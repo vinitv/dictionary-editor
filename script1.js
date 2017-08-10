@@ -12,19 +12,19 @@ var DEditor = angular.module("DEditor", ['ngResource', 'ui.bootstrap']);
 
     DEditor.controller("KeyValCtrl", ['$scope', '$http', function($scope, $http) {
         $scope.dictionarydata = [{
-                'dkey': 'Infosys Technologies',
+                'dkey': 'First Key',
                 'dvalue': 125000
             },
             {
-                'dkey': 'Cognizant Technologies',
+                'dkey': 'Second Key',
                 'dvalue': 100000
             },
             {
-                'dkey': 'Wipro',
+                'dkey': 'Third Key',
                 'dvalue': 115000
             },
             {
-                'dkey': 'Tata Consultancy Services (TCS)',
+                'dkey': 'All Key',
                 'dvalue': 150000
             },
         ];
@@ -77,19 +77,19 @@ var DEditor = angular.module("DEditor", ['ngResource', 'ui.bootstrap']);
 
     helloAjaxApp.controller("KeyValCtrl", ['$scope', '$http', function($scope, $http) {
         $scope.dictionarydata = [{
-                'dkey': 'Infosys Technologies',
+                'dkey': 'Variable 1',
                 'dvalue': 125000
             },
             {
-                'dkey': 'Cognizant Technologies',
+                'dkey': 'String 1',
                 'dvalue': 100000
             },
             {
-                'dkey': 'Wipro',
+                'dkey': 'Random Text',
                 'dvalue': 115000
             },
             {
-                'dkey': 'Tata Consultancy Services (TCS)',
+                'dkey': 'Command Label',
                 'dvalue': 150000
             },
         ];
