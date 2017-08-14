@@ -1,14 +1,26 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html ng-app="DEditor">
 
 <head>
     <title>ASM Dictionary Editor</title>
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.20/angular.min.js"></script>
     <script src="components/scripts/ui-bootstrap-tpls-0.9.0.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.18/angular-resource.js"></script>
     <script src="components/scripts/script1.js"></script>
     <script src="components/scripts/script2.js"></script> 
+    <script>
+	$(document).ready(function(){
+	    $('.gtasm').attr('disabled',true);
+	    $('#apiKey').keyup(function(){
+	        if($(this).val().length !=0)
+	            $('.gtasm').attr('disabled', false);            
+	        else
+	            $('.gtasm').attr('disabled',true);
+	    })
+	});
+    </script>
 </head>
 <!-- Controller dkey goes here -->
 
@@ -22,14 +34,14 @@
                 <div class="row">
                  <div class="col-xs-4">
                     <label for="apiKeys">API Key:</label>
-                    <input class="form-control" id="apiKeys" placeholder="APIKEY"/>
+                    <input class="form-control" id="apiKey" placeholder="APIKEY" ng-model="apiKey"/>
                     <br/>
                     </div>
                      <div class="col-xs-2 form-group">
                     <label class="control-label" for="selectSilo">
                         Select a silo
                     </label>
-                    <select id="selectSilo" class="select form-control">
+                    <select id="selectSilo" class="select form-control" ng-model="selectSilo">
                         <option value="">Silo #1</option>
                         <option value="2">Silo #2</option>
                         <option value="3">Silo #3</option>
@@ -40,23 +52,23 @@
                     <label class="control-label">
                       
                     </label>
-                    <button type="button" id="getAllChecks" class="btn btn-primary">Fetch</button>
+                    
 
                     </div>
                  </div>
                  <div class="row">
 
                     <div class="col-xs-4 form-group">
-                    <label class="control-label " for="select-check1">
+                    <!--<label class="control-label " for="select-check1">
                         Select to Edit
                     </label>
                     <select class="select form-control" id="select-check1">
-                    </select>
-                    </div>
-                     <div class="col-xs-1" style="margin-top: 20px;">
-                    <label class="control-label">
-                      
-                    </label>
+                    </select>-->
+					<label for="dkey">Existing Dictionary Key</label>
+                    <input class="form-control" id="dikey" placeholder="Dictionary Key" ng-model="dikey"/>
+                    <br/>
+					
+
 
                     <div ng-controller="ModalDemoCtrl">
 					    <script type="text/ng-template" id="myModalContent.html">
@@ -72,17 +84,24 @@
 					          </div>
 					        </form>
 					    </script>
-
-					    <button type="button" id="getAllChecks" ng-click="open()" class="btn btn-primary">Create New</button>
+					<button type="button" id="getAllChecks1" ng-click="sendpost()" class="btn btn-primary gtasm">Fetch</button>
+					<button type="button" id="getAllChecks2" ng-click="open()" class="btn btn-success gtasm">Create New</button>
+										    
 					</div>
                     
+                    </div>
+                     <div class="col-xs-1" style="margin-top: 20px;">
+                    <label class="control-label">
+                      
+                    </label>
+
 
                     </div>
                      <div class="col-xs-1" style="margin-top: 20px;margin-left: 20px;">
                     <label class="control-label">
                       
                     </label>
-                    <button type="button" id="getAllChecks" class="btn btn-primary">Refresh</button>
+                   <!-- <button type="button" id="getAllChecks" class="btn btn-primary">Refresh</button> -->
 
                     </div>
                 </div>
@@ -124,7 +143,7 @@
                                 <div class="form-group">
                                     <label class="col-md-2 control-label">Value</label>
                                     <div class="col-md-4">
-                                        <input type="text" class="form-control" dkey="dvalue" ng-model="dvalue" />
+                                        <input type="text" class="form-control" dvalue="dvalue" ng-model="dvalue" />
                                     </div>
                                 </div>
                                 <div class="form-group">

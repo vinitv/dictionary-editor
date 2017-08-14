@@ -11,23 +11,26 @@ var DEditor = angular.module("DEditor", ['ngResource', 'ui.bootstrap']);
 
 
     DEditor.controller("KeyValCtrl", ['$scope', '$http', function($scope, $http) {
-        $scope.dictionarydata = [{
-                'dkey': 'First Key',
-                'dvalue': 125000
-            },
-            {
-                'dkey': 'Second Key',
-                'dvalue': 100000
-            },
-            {
-                'dkey': 'Third Key',
-                'dvalue': 115000
-            },
-            {
-                'dkey': 'All Key',
-                'dvalue': 150000
-            },
-        ];
+        $scope.dictionarydata = [];
+
+
+
+        $scope.sendpost = function() {
+        var data = "aa";
+        var ss=$('#selectSilo').val();
+        $http.get("https://api-wpm"+ss+".apicasystem.com/v3/scenarios/proxysniffer/dictionaries/"+$scope.dikey+"?auth_ticket="+$scope.apiKey).success(function(data, status) {
+            //$scope.hello = data;
+            var result = data;
+            $scope.dictionarydata=[];
+                $scope.dkey = '';
+                $scope.dvalue = '';
+            $.each(result, function(k, v) {
+
+                $scope.dictionarydata.push({ 'dkey': k, 'dvalue': v});
+            });
+            console.log(data);
+        })
+         };
 
 
         $scope.addRow = function() {
@@ -73,46 +76,3 @@ var DEditor = angular.module("DEditor", ['ngResource', 'ui.bootstrap']);
 
     }]);
 
-    var helloAjaxApp = angular.module("helloAjaxApp", ['ui.bootstrap']);
-
-    helloAjaxApp.controller("KeyValCtrl", ['$scope', '$http', function($scope, $http) {
-        $scope.dictionarydata = [{
-                'dkey': 'Variable 1',
-                'dvalue': 125000
-            },
-            {
-                'dkey': 'String 1',
-                'dvalue': 100000
-            },
-            {
-                'dkey': 'Random Text',
-                'dvalue': 115000
-            },
-            {
-                'dkey': 'Command Label',
-                'dvalue': 150000
-            },
-        ];
-
-        $scope.addRowAsyncAsJSON = function() {
-            $scope.dictionarydata.push({ 'dkey': $scope.dkey, 'dvalue': $scope.dvalue, 'headoffice': $scope.headoffice });
-            // Writing it to the server
-            //		
-            var dataObj = {
-                dkey: $scope.dkey,
-                dvalue: $scope.dvalue
-            };
-            var res = $http.post('/savecompany_json', dataObj);
-            res.success(function(data, status, headers, config) {
-                $scope.message = data;
-            });
-            res.error(function(data, status, headers, config) {
-                alert("failure message: " + JSON.stringify({ data: data }));
-            });
-            // Making the fields empty
-            //
-            $scope.dkey = '';
-            $scope.dvalue = '';
-
-        };
-    }]);
