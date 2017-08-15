@@ -14,10 +14,22 @@
 	$(document).ready(function(){
 	    $('.gtasm').attr('disabled',true);
 	    $('#apiKey').keyup(function(){
-	        if($(this).val().length !=0)
-	            $('.gtasm').attr('disabled', false);            
+	        if($(this).val().length ==0){
+	            $('#getAllChecks2').attr('disabled', true);   
+	            $('#getAllChecks1').attr('disabled', true); 
+	            } 
+	        else if($(this).val().length !=0 &&  $('#dikey').val().length ==0){
+	            $('#getAllChecks2').attr('disabled', false);   
+	            $('#getAllChecks1').attr('disabled', true); 
+	            }         
 	        else
-	            $('.gtasm').attr('disabled',true);
+	            $('.gtasm').attr('disabled',false);
+	    });
+	     $('#dikey').keyup(function(){
+	        if($(this).val().length !=0 && $('#apiKey').val().length!=0)
+	            $('#getAllChecks1').attr('disabled', false);            
+	        else
+	            $('#getAllChecks1').attr('disabled',true);
 	    })
 	});
     </script>
@@ -76,7 +88,7 @@
 					        <form ng-submit="submit()">
 					          <div class="modal-body">
 					            <label>Enter Dictionary Name:  </label>
-					            <input type="email" ng-model="user.email" />
+					            <input pattern="^\S+$" type="text" ng-model="user.dictionary" id="udictionary" />
 					          </div>
 					          <div class="modal-footer">
 					              <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
@@ -111,14 +123,14 @@
                 <br/>
                 <table style="width:100%;margin-top: 30px;">
                     <tr>
-                        <td style="width:50%">
+                        <td style="width:60%">
                             <table class="table">
                                 <tr>
                                     <th>Key
                                     </th>
                                     <th>Value
                                     </th>
-                                    <th>Action
+                                    <th>Actions
                                     </th>
                                 </tr>
                                 <tr ng-repeat="company in dictionarydata">
@@ -127,23 +139,25 @@
                                     <td>{{company.dvalue}}
                                     </td>
                                     <td>
-                                        <input type="button" value="Remove" class="btn btn-primary" ng-click="removeRow(company.dkey)" />
+                                    <button class="btn btn-primary btn-xs" data-title="Edit" data-toggle="modal" data-target="#edit" ng-click="editRow(company.dkey)""><span class="glyphicon glyphicon-pencil"></span></button>
+                                    <button class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete" ng-click="removeRow(company.dkey)"><span class="glyphicon glyphicon-trash"></span></button>
+
                                     </td>
                                 </tr>
                             </table>
                         </td>
-                        <td style="width:40%">
+                        <td style="width:30%">
                             <form class="form-horizontal" role="form" ng-submit="addRow()">
                                 <div class="form-group">
                                     <label class="col-md-2 control-label">Key</label>
                                     <div class="col-md-4">
-                                        <input type="text" class="form-control" dkey="dkey" ng-model="dkey" />
+                                        <input title="Key cannot contain spaces" required pattern="^\S+$" type="text" class="form-control" dkey="dkey" ng-model="dkey" />
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-md-2 control-label">Value</label>
                                     <div class="col-md-4">
-                                        <input type="text" class="form-control" dvalue="dvalue" ng-model="dvalue" />
+                                        <input required type="text" class="form-control" dvalue="dvalue" ng-model="dvalue" />
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -154,8 +168,9 @@
                             </form>
                         </td>
                     </tr>
-                </table>
+                </table> <button type="button" id="updateDictionary" class="btn btn-primary gtasm">Update Dictionary</button>
                 </div>
+
                 </div>
                 <div id="show-results">
                     <!-- -->
@@ -163,7 +178,7 @@
             </div>
         </div>
         <footer class="blog-footer">
-            <p>
+            <p><br/><br/>
                 <a href="#">Back to top</a>
             </p>
         </footer>

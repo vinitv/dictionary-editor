@@ -1,32 +1,35 @@
 angular.module('plunker', ['ui.bootstrap']);
 var ModalDemoCtrl = function ($scope, $modal, $log,$http) {
+
+    var ss=$('#selectSilo').val();
+    var apiKey=$('#apiKey').val();
+    var dikey=$('#udictionary').val();
     $scope.user = {
-        email: '',
-        password: null,
-    };
+          dictionary_key: dikey,
+          description: "Description goes here"
+  };
+
+   
 
     $scope.open = function () {
         $modal.open({
-            templateUrl: 'myModalContent.html', // loads the template
-            backdrop: true, // setting backdrop allows us to close the modal window on clicking outside the modal window
-            windowClass: 'modal', // windowClass - additional CSS class(es) to be added to a modal window template
+            templateUrl: 'myModalContent.html', 
+            backdrop: true,
+            windowClass: 'modal',
             controller: function ($scope, $modalInstance, $log, user) {
-                $scope.user = user;
+
+                
                 $scope.submit = function () {
-                    $log.log('Submiting user info.'); // kinda console logs this statement
-                    $log.log(user);
                     $http({
                     method: 'POST', 
-                    url: 'https://mytesturl.com/apihit',
-                    headers: {
-                        "Content-type": undefined
-                    }
-                    , data: user
+                    url: "https://api-wpm"+$('#selectSilo').val()+".apicasystem.com/v3/scenarios/proxysniffer/dictionaries/?auth_ticket="+$('#apiKey').val(),
+                    data: { "dictionary_key": $('#udictionary').val(),
+                          "description": "Description goes here"}
                 }).then(function (response) {
-                    console.log(response);
+                  
                    $modalInstance.dismiss('cancel'); 
                 }, function (response) {
-                    console.log('i am in error');
+                   
                    $modalInstance.dismiss('cancel'); 
                     });
                     //$modalInstance.dismiss('cancel'); // dismiss(reason) - a method that can be used to dismiss a modal, passing a reason

@@ -73,6 +73,23 @@ var DEditor = angular.module("DEditor", ['ngResource', 'ui.bootstrap']);
             $scope.dictionarydata.splice(index, 1);
         };
 
+         $scope.editRow = function(dkey) {
+            var index = -1;
+            var comArr = eval($scope.dictionarydata);
+            for (var i = 0; i < comArr.length; i++) {
+                if (comArr[i].dkey === dkey) {
+                    index = i;
+                    break;
+                }
+            }
+            if (index === -1) {
+                alert("Something gone wrong");
+            }
+           console.log($scope.dictionarydata[index].dkey);
+            $scope.dkey =  $scope.dictionarydata[index].dkey;
+            $scope.dvalue = $scope.dictionarydata[index].dvalue;
+        };
+
 
     }]);
 
