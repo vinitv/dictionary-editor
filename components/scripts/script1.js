@@ -34,9 +34,19 @@ var DEditor = angular.module("DEditor", ['ngResource', 'ui.bootstrap']);
 
 
         $scope.addRow = function() {
-            $scope.dictionarydata.push({ 'dkey': $scope.dkey, 'dvalue': $scope.dvalue });
-            $scope.dkey = '';
-            $scope.dvalue = '';
+            
+            var mindex = $scope.dictionarydata.findIndex(item => item.dkey === $scope.dkey);
+            if(mindex  === -1){
+                
+                $scope.dictionarydata.push({ 'dkey': $scope.dkey, 'dvalue': $scope.dvalue });
+                $scope.dkey = '';
+                $scope.dvalue = '';
+            }
+            else
+            {
+                $scope.statusmessage = "Key '"+$scope.dkey+"' already exists in the dictionary";
+                
+            }
         };
 
         $scope.addRowAsyncAsNV = function() {
