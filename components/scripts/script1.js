@@ -22,6 +22,7 @@ DEditor.controller("KeyValCtrl", ['$scope', '$http', '$timeout', function($scope
 
             .then(function(data, status) {
                 //$scope.hello = data;
+                $(".allresults").show();
                 var result = data.data;
                 $scope.dictionarydata = [];
                 $scope.dkey = '';

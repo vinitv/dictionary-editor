@@ -26,7 +26,7 @@ var ModalDemoCtrl = function ($scope, $modal, $log,$http) {
                     data: { "dictionary_key": $('#udictionary').val(),
                           "description": "Description goes here"}
                 }).then(function (response) {
-                  
+                   $(".allresults").show();
                    $modalInstance.dismiss('cancel'); 
                 }, function (response) {
                    

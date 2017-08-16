@@ -38,11 +38,17 @@
 <!-- Controller dkey goes here -->
 
 <body ng-controller="KeyValCtrl">
+
     <div class="loader"></div> 
     <div class="container">
         <div class="row">
+        
             <div class="col-sm-12">
-                <h3>ASM Dictionary Editor</h3> 
+                <nav class="navbar navbar-light bg-faded">
+ 
+    <h3>ASM Dictionary Editor</h3> 
+  
+</nav>
 
                 <div class="row">
                  <div class="col-xs-4">
@@ -127,6 +133,8 @@
                     <p ng-bind-html="statusmessage"></p>
                
                 <br/>
+                <div class="row allresults" style="display: none;">
+                <div class="col-md-12">
                 <table style="width:100%;margin-top: 30px;">
                     <tr>
                         <td style="width:60%">
@@ -174,7 +182,11 @@
                             </form>
                         </td>
                     </tr>
-                </table> <button type="button" id="updateDictionary" class="btn btn-primary gtasm"><span class="glyphicon glyphicon-floppy-disk"></span> Update Dictionary</button>
+                </table> 
+
+                <button type="button" id="updateDictionary" class="btn btn-primary gtasm"><span class="glyphicon glyphicon-floppy-disk"></span> Update Dictionary</button>
+                </div>
+                </div>
                 </div>
 
                 </div>
