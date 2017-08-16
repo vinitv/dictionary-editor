@@ -1,4 +1,4 @@
-var DEditor = angular.module("DEditor", ['ngResource', 'ui.bootstrap']);
+var DEditor = angular.module("DEditor", ['ngResource', 'ui.bootstrap','ngSanitize']);
 
     DEditor.config(['$httpProvider', function($httpProvider) {
         $httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded; charset=utf-8';
@@ -10,7 +10,7 @@ var DEditor = angular.module("DEditor", ['ngResource', 'ui.bootstrap']);
 
 
 
-    DEditor.controller("KeyValCtrl", ['$scope', '$http', function($scope, $http) {
+      DEditor.controller("KeyValCtrl", ['$scope', '$http', '$timeout', function($scope, $http, $timeout) {
         $scope.dictionarydata = [];
 
 
@@ -34,7 +34,7 @@ var DEditor = angular.module("DEditor", ['ngResource', 'ui.bootstrap']);
 
 
         $scope.addRow = function() {
-            
+            $scope.statusmessage='';
             var mindex = $scope.dictionarydata.findIndex(item => item.dkey === $scope.dkey);
             if(mindex  === -1){
                 
@@ -42,10 +42,12 @@ var DEditor = angular.module("DEditor", ['ngResource', 'ui.bootstrap']);
                 $scope.dkey = '';
                 $scope.dvalue = '';
             }
-            else
+            else 
             {
-                $scope.statusmessage = "Key '"+$scope.dkey+"' already exists in the dictionary";
-                
+                $scope.statusmessage = "<div style='width:300px;' class='alert alert-warning' role='alert'>Key '"+$scope.dkey+"' already exists in the dictionary</div>";
+                $timeout(function() {
+                  $scope.statusmessage = '';
+                }, 4500);
             }
         };
 
