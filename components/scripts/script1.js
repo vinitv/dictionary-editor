@@ -1,8 +1,13 @@
 var DEditor = angular.module("DEditor", ['ngResource', 'ui.bootstrap', 'ngSanitize']);
 
 DEditor.config(['$httpProvider', function($httpProvider) {
-    $httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded; charset=utf-8';
+    $httpProvider.defaults.headers.common = {};
+    $httpProvider.defaults.headers.post = {};
+    $httpProvider.defaults.headers.put = {};
+    $httpProvider.defaults.headers.patch = {};
 }]);
+
+
 
 DEditor.controller("DEditorCtrl", function($scope) {
     $scope.dkey = "Vinit Varghese";
@@ -37,12 +42,43 @@ DEditor.controller("KeyValCtrl", ['$scope', '$http', '$timeout', function($scope
                 console.log(data);
                 if (data.status == 404) {
                     $scope.addStatus(data.data.Message,"danger", 3000);
+                    $(".allresults").hide();
 
                 } else {
                     $scope.addStatus(data.data,"danger", 3000);
                 }
             });
     };
+
+    $scope.createnew = function() {
+
+    
+        var markers = "dId=" + $scope.dikey + "&reqType=create&apiKey=" + $scope.apiKey;
+        $http({
+            method: 'POST',
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'},  
+            url: "components/controller/poster.php",
+            data: markers
+        }).then(function(data, status) {
+            $('#getAllChecks1').attr('disabled', false);
+            console.log(data);
+            if (data.data.Message){
+            $scope.addStatus("Dictionary Already Exists! Press 'Fetch' to start","warning", 3000);
+        }else{$scope.addStatus("Dictionary Created Successfully! Press 'Fetch' to start","success", 3000);}
+        })
+        .catch(function(data) {
+                console.log(data);
+                if (data.status == 404) {
+                    $scope.addStatus(data.data.Message,"danger", 3000);
+
+                } else {
+                    $scope.addStatus(data.data,"danger", 3000);
+                }
+            });
+
+
+    };
+
 
 
     $scope.addRow = function() {

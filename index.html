@@ -8,29 +8,25 @@
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.20/angular.min.js"></script>
      <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.20/angular-sanitize.min.js"></script>
     <script src="components/scripts/ui-bootstrap-tpls-0.9.0.min.js"></script>
-    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.18/angular-resource.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.20/angular-resource.js"></script>
     <script src="components/scripts/script1.js"></script>
     <script src="components/scripts/script2.js"></script> 
     <script>
 	$(document).ready(function(){
 	    $('.gtasm').attr('disabled',true);
 	    $('#apiKey').keyup(function(){
-	        if($(this).val().length ==0){
+	        if($(this).val().length ==0 ||  $('#dikey').val().length ==0){
 	            $('#getAllChecks2').attr('disabled', true);   
 	            $('#getAllChecks1').attr('disabled', true); 
-	            } 
-	        else if($(this).val().length !=0 &&  $('#dikey').val().length ==0){
-	            $('#getAllChecks2').attr('disabled', false);   
-	            $('#getAllChecks1').attr('disabled', true); 
-	            }         
-	        else
-	            $('.gtasm').attr('disabled',false);
+	            }else{ $('#getAllChecks2').attr('disabled', false);   
+	            $('#getAllChecks1').attr('disabled', false); }         
 	    });
 	     $('#dikey').keyup(function(){
-	        if($(this).val().length !=0 && $('#apiKey').val().length!=0)
-	            $('#getAllChecks1').attr('disabled', false);            
-	        else
-	            $('#getAllChecks1').attr('disabled',true);
+	        if($(this).val().length ==0 || $('#apiKey').val().length==0)
+	           {$('#getAllChecks2').attr('disabled', true);   
+	            $('#getAllChecks1').attr('disabled', true); }
+	            else{ $('#getAllChecks2').attr('disabled', false);   
+	            $('#getAllChecks1').attr('disabled', false); }
 	    })
 	});
     </script>
@@ -42,7 +38,7 @@
     <div class="loader"></div> 
     <div class="container">
         <div class="row">
-        
+
             <div class="col-sm-12">
                 <nav class="navbar navbar-light bg-faded">
  
@@ -83,28 +79,28 @@
                     </label>
                     <select class="select form-control" id="select-check1">
                     </select>-->
-					<label for="dkey">Existing Dictionary Key</label>
-                    <input class="form-control" id="dikey" placeholder="Dictionary Key" ng-model="dikey"/>
+					<label for="dkey">New/Existing Dictionary Key</label>
+                    <input class="form-control" id="dikey" placeholder="Dictionary Key" ng-model="dikey" pattern="^\S+$" required />
                     <br/>
 					
 
 
-                    <div ng-controller="ModalDemoCtrl">
+               <!--     <div ng-controller="ModalDemoCtrl">
 					    <script type="text/ng-template" id="myModalContent.html">
 				
 					        <form ng-submit="submit()">
 					          <div class="modal-body">
 					            <label>Enter Dictionary Name:  </label>
-					            <input pattern="^\S+$" type="text" ng-model="user.dictionary" id="udictionary" />
+					            <input pattern="^\S+$" type="text" ng-model="nameudictionary" id="nameudictionary" />
 					          </div>
 					          <div class="modal-footer">
 					              <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
 					              <input type="submit" class="btn primary-btn" value="Submit" />
 					          </div>
 					        </form>
-					    </script>
+					    </script>-->
 					<button type="button" id="getAllChecks1" ng-click="sendpost()" class="btn btn-primary gtasm"><span class="glyphicon glyphicon-refresh"></span> Fetch</button>
-					<button type="button" id="getAllChecks2" ng-click="open()" class="btn btn-success gtasm"><span class="glyphicon glyphicon-plus"></span> Add </button>
+					<button type="button" id="getAllChecks2" ng-click="createnew()" class="btn btn-success gtasm"><span class="glyphicon glyphicon-plus"></span> Add </button>
 
 
 										    

@@ -1,48 +1,53 @@
 angular.module('plunker', ['ui.bootstrap']);
-var ModalDemoCtrl = function ($scope, $modal, $log,$http) {
+var ModalDemoCtrl = function($scope, $modal, $log, $http) {
 
-    var ss=$('#selectSilo').val();
-    var apiKey=$('#apiKey').val();
-    var dikey=$('#udictionary').val();
+    var ss = $('#selectSilo').val();
+    var apiKey = $('#apiKey').val();
+    var dikey = $('#udictionary').val();
     $scope.user = {
-          dictionary_key: dikey,
-          description: "Description goes here"
-  };
+        dictionary_key: dikey,
+        description: "Description goes here"
+    };
 
-   
-
-    $scope.open = function () {
+    $scope.open = function() {
         $modal.open({
-            templateUrl: 'myModalContent.html', 
+            templateUrl: 'myModalContent.html',
             backdrop: true,
             windowClass: 'modal',
-            controller: function ($scope, $modalInstance, $log, user) {
+            controller: function($scope, $modalInstance, $log) {
+            $scope.data = {
+                    nameudictionary:""
+                };
 
-                
-                $scope.submit = function () {
+                $scope.submit = function() {
+                    $scope.data.nameudictionary=$('#nameudictionary').val();
+                    //alert($scope.data.nameudictionary);
+                    var markers = "dId=" + $scope.data.nameudictionary + "&reqType=create&apiKey=" + $('#apiKey').val();
                     $http({
-                    method: 'POST', 
-                    url: "https://api-wpm"+$('#selectSilo').val()+".apicasystem.com/v3/scenarios/proxysniffer/dictionaries/?auth_ticket="+$('#apiKey').val(),
-                    data: { "dictionary_key": $('#udictionary').val(),
-                          "description": "Description goes here"}
-                }).then(function (response) {
-                   $(".allresults").show();
-                   $modalInstance.dismiss('cancel'); 
-                }, function (response) {
-                   
-                   $modalInstance.dismiss('cancel'); 
+                        method: 'POST',
+                        headers: {'Content-Type': 'application/x-www-form-urlencoded'},  
+                        url: "components/controller/poster.php",
+                        data: markers
+                    }).then(function(response) {
+                        //$(".allresults").show();
+                        $("#dikey").val($scope.data.nameudictionary);
+                        $('#getAllChecks1').attr('disabled', false);
+                        $modalInstance.dismiss('cancel');
+                    }, function(response) {
+
+                        $modalInstance.dismiss('cancel');
                     });
                     //$modalInstance.dismiss('cancel'); // dismiss(reason) - a method that can be used to dismiss a modal, passing a reason
                 }
-                $scope.cancel = function () {
-                    $modalInstance.dismiss('cancel'); 
+                $scope.cancel = function() {
+                    $modalInstance.dismiss('cancel');
                 };
             },
             resolve: {
-                user: function () {
+                user: function() {
                     return $scope.user;
                 }
             }
-        });//end of modal.open
+        }); //end of modal.open
     }; // end of scope.open function
 };
