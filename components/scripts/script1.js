@@ -79,6 +79,34 @@ DEditor.controller("KeyValCtrl", ['$scope', '$http', '$timeout', function($scope
 
     };
 
+    $scope.updated = function() {
+
+      
+    
+        var markers = "dId=" + $scope.dikey + "&reqType=update&apiKey=" + $scope.apiKey+"&dContent="+angular.toJson($scope.dictionarydata);
+        $http({
+            method: 'POST',
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'},  
+            url: "components/controller/poster.php",
+            data: markers
+        }).then(function(data, status) {
+            
+            console.log(data);
+            $scope.addStatus("Dictionary Updated Successfully","success", 3000);
+        })
+        .catch(function(data) {
+                console.log(data);
+                if (data.status == 404) {
+                    $scope.addStatus(data.data.Message,"danger", 3000);
+
+                } else {
+                    $scope.addStatus(data.data,"danger", 3000);
+                }
+            });
+
+
+    };
+
 
 
     $scope.addRow = function() {

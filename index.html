@@ -13,7 +13,7 @@
     <script src="components/scripts/script2.js"></script> 
     <script>
 	$(document).ready(function(){
-	    $('.gtasm').attr('disabled',true);
+	    
 	    $('#apiKey').keyup(function(){
 	        if($(this).val().length ==0 ||  $('#dikey').val().length ==0){
 	            $('#getAllChecks2').attr('disabled', true);   
@@ -85,20 +85,6 @@
 					
 
 
-               <!--     <div ng-controller="ModalDemoCtrl">
-					    <script type="text/ng-template" id="myModalContent.html">
-				
-					        <form ng-submit="submit()">
-					          <div class="modal-body">
-					            <label>Enter Dictionary Name:  </label>
-					            <input pattern="^\S+$" type="text" ng-model="nameudictionary" id="nameudictionary" />
-					          </div>
-					          <div class="modal-footer">
-					              <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
-					              <input type="submit" class="btn primary-btn" value="Submit" />
-					          </div>
-					        </form>
-					    </script>-->
 					<button type="button" id="getAllChecks1" ng-click="sendpost()" class="btn btn-primary gtasm"><span class="glyphicon glyphicon-refresh"></span> Fetch</button>
 					<button type="button" id="getAllChecks2" ng-click="createnew()" class="btn btn-success gtasm"><span class="glyphicon glyphicon-plus"></span> Add </button>
 
@@ -180,7 +166,7 @@
                     </tr>
                 </table> 
 
-                <button type="button" id="updateDictionary" class="btn btn-primary gtasm"><span class="glyphicon glyphicon-floppy-disk"></span> Update Dictionary</button>
+                <button type="button" id="updateDictionary" class="btn btn-primary"  ng-click="updated()"><span class="glyphicon glyphicon-floppy-disk"></span> Update Dictionary</button>
                 </div>
                 </div>
                 </div>
