@@ -46,7 +46,7 @@ function postMyStuff($url,$payload){
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 		curl_setopt($ch, CURLOPT_URL,$url);
 		curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PUT");  
-		curl_setopt($ch, CURLOPT_POSTFIELDS,http_build_query($payload));
+		curl_setopt($ch, CURLOPT_POSTFIELDS,$payload);
 		curl_setopt($ch, CURLOPT_HTTPHEADER, array(                                                                          
 		    'Content-Type: application/json',                                                                                
 		    'Content-Length: ' . strlen($payload))                                                                       
@@ -69,11 +69,21 @@ function CreateD($apiKey,$dId,$silo){
 
 
 function UpdateD($apiKey,$dId,$silo,$dContent){		
-	$dc="{dictionary_key:'".$dId."',dictionary:{sampleKey:'sampleValue'},description:'Description goes here'}";
- 	$url = "https://api-wpm".$silo.".apicasystem.com/v3/scenarios/proxysniffer/dictionaries/?auth_ticket=".$apiKey;
- 	$result = curlMyStuff($url,$dc);
+ $someArray = json_decode($dContent, true);
+ $kk="";
+ $count=0;
+ foreach ($someArray as $key => $value) {
+ 	$count++;
+ 	if($count!=1){$kk.=",";}
+	$kk.= "".$value["dkey"] . ":" . "'".$value["dvalue"]."'";
+
+ }
+	$dc="{dictionary:{".$kk."},description:'Description goes here'}";
+	echo $dc;
+ 	$url = "https://api-wpm".$silo.".apicasystem.com/v3/scenarios/proxysniffer/dictionaries/".$dId."?auth_ticket=".$apiKey;
+ 	$result = putMyStuff($url,$dc);
  	//$json_array = json_decode($result,true); // convert to object array
-	return $result;
+	return "success";
 
  }
 

@@ -39,7 +39,7 @@ DEditor.controller("KeyValCtrl", ['$scope', '$http', '$timeout', function($scope
                 $scope.addStatus("Dictionary Loaded Successfully!","success", 3000);
             })
             .catch(function(data) {
-                console.log(data);
+                //console.log(data);
                 if (data.status == 404) {
                     $scope.addStatus(data.data.Message,"danger", 3000);
                     $(".allresults").hide();
@@ -61,13 +61,13 @@ DEditor.controller("KeyValCtrl", ['$scope', '$http', '$timeout', function($scope
             data: markers
         }).then(function(data, status) {
             $('#getAllChecks1').attr('disabled', false);
-            console.log(data);
+            //console.log(data);
             if (data.data.Message){
             $scope.addStatus("Dictionary Already Exists! Press 'Fetch' to start","warning", 3000);
         }else{$scope.addStatus("Dictionary Created Successfully! Press 'Fetch' to start","success", 3000);}
         })
         .catch(function(data) {
-                console.log(data);
+               // console.log(data);
                 if (data.status == 404) {
                     $scope.addStatus(data.data.Message,"danger", 3000);
 
@@ -90,12 +90,10 @@ DEditor.controller("KeyValCtrl", ['$scope', '$http', '$timeout', function($scope
             url: "components/controller/poster.php",
             data: markers
         }).then(function(data, status) {
-            
-            console.log(data);
-            $scope.addStatus("Dictionary Updated Successfully","success", 3000);
+            $scope.addStatus("Dictionary Updated Successfully!","success", 3000);
         })
         .catch(function(data) {
-                console.log(data);
+                //console.log(data);
                 if (data.status == 404) {
                     $scope.addStatus(data.data.Message,"danger", 3000);
 
@@ -177,7 +175,7 @@ DEditor.controller("KeyValCtrl", ['$scope', '$http', '$timeout', function($scope
         if (index === -1) {
             alert("Something gone wrong");
         }
-        console.log($scope.dictionarydata[index].dkey);
+        //console.log($scope.dictionarydata[index].dkey);
         $scope.dkey = $scope.dictionarydata[index].dkey;
         $scope.dvalue = $scope.dictionarydata[index].dvalue;
     };
