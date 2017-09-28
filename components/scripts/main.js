@@ -52,8 +52,8 @@ DEditor.controller("KeyValCtrl", ['$scope', '$http', '$timeout', function($scope
 
     $scope.createnew = function() {
 
-    
-        var markers = "dId=" + $scope.dikey + "&reqType=create&apiKey=" + $scope.apiKey;
+        var ss = $('#selectSilo').val();
+        var markers = "dId=" + $scope.dikey + "&reqType=create&silo="+ ss +"&apiKey=" + $scope.apiKey;
         $http({
             method: 'POST',
             headers: {'Content-Type': 'application/x-www-form-urlencoded'},  
