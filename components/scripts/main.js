@@ -82,8 +82,8 @@ DEditor.controller("KeyValCtrl", ['$scope', '$http', '$timeout', function($scope
     $scope.updated = function() {
 
       
-    
-        var markers = "dId=" + $scope.dikey + "&reqType=update&apiKey=" + $scope.apiKey+"&dContent="+angular.toJson($scope.dictionarydata);
+    var ss = $('#selectSilo').val();
+        var markers = "dId=" + $scope.dikey + "&reqType=update&silo="+ ss +"&apiKey=" + $scope.apiKey+"&dContent="+angular.toJson($scope.dictionarydata);
         $http({
             method: 'POST',
             headers: {'Content-Type': 'application/x-www-form-urlencoded'},  
